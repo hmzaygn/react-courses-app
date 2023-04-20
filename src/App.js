@@ -4,6 +4,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { green, indigo } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppRouter from "./router/AppRouter";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const theme = createTheme({
@@ -25,6 +26,7 @@ function App() {
             <AppRouter />
           </PersistGate>
         </Provider>
+        <ToastContainer />
       </ThemeProvider>
     </>
   );

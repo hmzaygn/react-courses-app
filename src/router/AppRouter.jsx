@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRouter from "./PrivateRouter";
+import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
 
 const AppRouter = () => {
@@ -12,8 +13,11 @@ const AppRouter = () => {
       <Routes>
         <Route path={"/"} element={<Login />} />
         <Route path={"register"} element={<Register />} />
-        <Route path={"courses"} element={<PrivateRouter />}>
-          <Route index element={<Home />} />
+
+        <Route path="courses" element={<PrivateRouter />}>
+          <Route path="" element={<Dashboard />}>
+            <Route index element={<Home />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
