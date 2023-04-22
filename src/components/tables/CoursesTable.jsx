@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
@@ -34,8 +33,10 @@ const iconStyle = {
 
 function Row(props) {
   const { isAdmin } = useSelector((state) => state.auth);
-  const { course } = props;
-  const [open, setOpen] = React.useState(false);
+  const { course, setOpen, setInfo } = props;
+  const { deleteCourse } = useCourseCalls();
+
+  const [openRow, setOpenRow] = React.useState(false);
 
   return (
     <React.Fragment>
@@ -44,19 +45,28 @@ function Row(props) {
           <IconButton
             aria-label="expand row"
             size="small"
-            onClick={() => setOpen(!open)}
+            onClick={() => setOpenRow(!openRow)}
           >
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            {openRow ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {course.id}
+          {course.course_id}
         </TableCell>
         <TableCell align="center">{course.course_name}</TableCell>
         {isAdmin ? (
           <TableCell align="center">
-            <EditIcon sx={iconSuperStyle} />
-            <DeleteForeverIcon sx={iconSuperStyle} />
+            <EditIcon
+              sx={iconSuperStyle}
+              onClick={() => {
+                setOpen(true);
+                setInfo(course);
+              }}
+            />
+            <DeleteForeverIcon
+              sx={iconSuperStyle}
+              onClick={() => deleteCourse(course?.id)}
+            />
           </TableCell>
         ) : (
           <TableCell align="center">
@@ -67,7 +77,7 @@ function Row(props) {
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={openRow} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Table size="small" aria-label="purchases">
                 <TableHead>
@@ -99,7 +109,7 @@ function Row(props) {
   );
 }
 
-export default function CoursesTable({ courses }) {
+export default function CoursesTable({ courses, setInfo, setOpen }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -113,7 +123,12 @@ export default function CoursesTable({ courses }) {
         </TableHead>
         <TableBody>
           {courses.map((course) => (
-            <Row key={course.id} course={course} />
+            <Row
+              key={course.id}
+              course={course}
+              setOpen={setOpen}
+              setInfo={setInfo}
+            />
           ))}
         </TableBody>
       </Table>

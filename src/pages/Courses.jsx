@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import useCourseCalls from "../hooks/useCourseCalls";
 import { useSelector } from "react-redux";
 import CoursesTable from "../components/tables/CoursesTable";
+import CoursesModal from "../components/modals/CoursesModal";
 
 const Courses = () => {
   const { getAllCoursesStudentsData } = useCourseCalls();
   const { courses } = useSelector((state) => state.course);
+
+  const [open, setOpen] = useState(false);
+  const [info, setInfo] = useState({});
 
   useEffect(() => {
     getAllCoursesStudentsData();
@@ -20,9 +24,20 @@ const Courses = () => {
         Courses
       </Typography>
 
-      <Button variant="contained">Add New Course</Button>
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        Add New Course
+      </Button>
 
-      {courses?.length > 0 && <CoursesTable courses={courses} />}
+      <CoursesModal
+        open={open}
+        setOpen={setOpen}
+        info={info}
+        setInfo={setInfo}
+      />
+
+      {courses?.length > 0 && (
+        <CoursesTable courses={courses} setOpen={setOpen} setInfo={setInfo} />
+      )}
     </Box>
   );
 };
