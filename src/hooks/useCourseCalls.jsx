@@ -44,11 +44,11 @@ const useCourseCalls = () => {
   const deleteCoursesData = async (url, id) => {
     try {
       await axiosWithToken.delete(`api/${url}/${id}/`);
-      toastSuccessNotify(`${url} successfuly deleted`);
+      toastSuccessNotify(`Successfuly deleted`);
       getAllCoursesStudentsData();
     } catch (error) {
       console.log(error);
-      toastErrorNotify(`${url} can not be deleted`);
+      toastErrorNotify(`Can not be deleted right now!!!`);
     }
   };
 
@@ -59,11 +59,11 @@ const useCourseCalls = () => {
   const postCoursesData = async (info, url) => {
     try {
       await axiosWithToken.post(`api/${url}/`, info);
-      toastSuccessNotify(`${url} successfuly added`);
+      toastSuccessNotify(`Successfuly added`);
       getAllCoursesStudentsData();
     } catch (error) {
       console.log(error);
-      toastErrorNotify(`${url} can not be added`);
+      toastErrorNotify(`Can not be added right now!!!`);
     }
   };
 
@@ -74,11 +74,11 @@ const useCourseCalls = () => {
   const putCoursesData = async (info, url) => {
     try {
       await axiosWithToken.put(`api/${url}/${info.id}/`, info);
-      toastSuccessNotify(`${url} successfuly updated`);
+      toastSuccessNotify(`Successfuly updated`);
       getAllCoursesStudentsData();
     } catch (error) {
       console.log(error);
-      toastErrorNotify(`${url} can not be updated`);
+      toastErrorNotify(`Can not be updated right now!!!`);
     }
   };
 
