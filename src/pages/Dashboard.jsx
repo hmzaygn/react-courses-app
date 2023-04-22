@@ -58,11 +58,16 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, color: "#eee" }}
+          >
             COURSES APP
           </Typography>
           {currentUser && (
-            <Button color="inherit" onClick={() => logout()}>
+            <Button sx={{ color: "#eee" }} onClick={() => logout()}>
               Logout
             </Button>
           )}
@@ -87,12 +92,11 @@ function Dashboard(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
-              backgroundColor: green[800],
             },
           }}
           PaperProps={{
             sx: {
-              backgroundColor: green[800],
+              backgroundColor: green[500],
             },
           }}
         >
@@ -110,7 +114,7 @@ function Dashboard(props) {
           open
           PaperProps={{
             sx: {
-              backgroundColor: green[800],
+              backgroundColor: green[500],
             },
           }}
         >

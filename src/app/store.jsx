@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice";
+import courseReducer from "../features/courseSlice";
 
 import storage from "redux-persist/lib/storage/";
 
@@ -24,6 +25,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 const store = configureStore({
   reducer: {
     auth: persistedReducer,
+    course: courseReducer,
   },
 
   middleware: (getDefaultMiddleware) =>
