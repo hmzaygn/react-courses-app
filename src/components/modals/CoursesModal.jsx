@@ -25,8 +25,6 @@ export default function CoursesModal({ open, setOpen, info, setInfo }) {
     setInfo({});
   };
 
-  console.log(info);
-
   return (
     <Modal
       open={open}
