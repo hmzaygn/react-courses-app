@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import CoursesTable from "../components/tables/CoursesTable";
 import CoursesModal from "../components/modals/CoursesModal";
+import useCourseCalls from "../hooks/useCourseCalls";
 
 const Courses = () => {
   const { courses } = useSelector((state) => state.course);
+  const { getAllCoursesStudentsData } = useCourseCalls();
 
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    getAllCoursesStudentsData();
+  }, []);
 
   return (
     <Box>

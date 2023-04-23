@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { blueGrey, red } from "@mui/material/colors";
 import { useSelector } from "react-redux";
@@ -33,8 +32,8 @@ const iconStyle = {
 
 function Row(props) {
   const { isAdmin } = useSelector((state) => state.auth);
-  const { course, setOpen, setInfo } = props;
-  const { deleteCourse } = useCourseCalls();
+  const { student } = props;
+  const { deleteStudent } = useCourseCalls();
 
   const [openRow, setOpenRow] = React.useState(false);
 
@@ -51,26 +50,19 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {course.course_id}
+          {student.id}
         </TableCell>
-        <TableCell align="center">{course.course_name}</TableCell>
+        <TableCell align="center">{student.first_name}</TableCell>
+        <TableCell align="center">{student.last_name}</TableCell>
         {isAdmin ? (
           <TableCell align="center">
-            <EditIcon
-              sx={iconSuperStyle}
-              onClick={() => {
-                setOpen(true);
-                setInfo(course);
-              }}
-            />
             <DeleteForeverIcon
               sx={iconSuperStyle}
-              onClick={() => deleteCourse(course?.id)}
+              onClick={() => deleteStudent(student?.id)}
             />
           </TableCell>
         ) : (
           <TableCell align="center">
-            <EditIcon sx={iconStyle} />
             <DeleteForeverIcon sx={iconStyle} />
           </TableCell>
         )}
@@ -83,21 +75,23 @@ function Row(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Students Taking This Course
+                      Student's Courses
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {course.students?.length > 0 ? (
-                    course.students?.map((student, index) => (
+                  {student?.courses?.length > 0 ? (
+                    student?.courses?.map((course, index) => (
                       <TableRow key={index}>
-                        <TableCell align="center">{student}</TableCell>
+                        <TableCell align="center">
+                          {course.course_name}
+                        </TableCell>
                       </TableRow>
                     ))
                   ) : (
                     <TableRow>
                       <TableCell align="center" sx={{ color: "red" }}>
-                        There is no one taking this course yet
+                        This student taking no course yet
                       </TableCell>
                     </TableRow>
                   )}
@@ -111,26 +105,23 @@ function Row(props) {
   );
 }
 
-export default function CoursesTable({ courses, setInfo, setOpen }) {
+export default function StudentsTable({ students }) {
+  console.log(students);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Course ID</TableCell>
-            <TableCell align="center">Course Name</TableCell>
+            <TableCell>Student No</TableCell>
+            <TableCell align="center"> Name</TableCell>
+            <TableCell align="center">Last Name</TableCell>
             <TableCell align="center">Options</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {courses.map((course) => (
-            <Row
-              key={course.id}
-              course={course}
-              setOpen={setOpen}
-              setInfo={setInfo}
-            />
+          {students.map((student) => (
+            <Row key={student.id} student={student} />
           ))}
         </TableBody>
       </Table>

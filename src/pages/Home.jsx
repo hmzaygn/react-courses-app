@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import KPICard from "../components/KPICard";
 import ProfileModal from "../components/modals/ProfileModal";
+import ProfileTable from "../components/tables/ProfileTable";
 
 const Home = () => {
   const { getAllCoursesStudentsData, getStudentDetail } = useCourseCalls();
@@ -63,6 +64,8 @@ const Home = () => {
       />
 
       <KPICard studentInfo={studentInfo} />
+
+      <ProfileTable studentInfo={studentInfo} />
     </Box>
   );
 };
