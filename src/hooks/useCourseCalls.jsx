@@ -40,6 +40,15 @@ const useCourseCalls = () => {
     }
   };
 
+  const getStudentDetail = async (id, setter) => {
+    try {
+      const { data } = await axiosWithToken.get(`/api/student-detail/${id}`);
+      setter(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   //!------------- DELETE CALLS ----------------
   const deleteCoursesData = async (url, id) => {
     try {
@@ -83,13 +92,14 @@ const useCourseCalls = () => {
   };
 
   const putCourse = (info) => putCoursesData(info, "courses");
-  const putStudent = (info) => putCoursesData(info, "student-create");
+  const putStudent = (info) => putCoursesData(info, "student-detail");
 
   return {
     getCoursesData,
     getCourses,
     getStudents,
     getAllCoursesStudentsData,
+    getStudentDetail,
     deleteCourse,
     deleteStudent,
     postCourse,

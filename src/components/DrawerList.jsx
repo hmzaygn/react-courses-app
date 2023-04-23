@@ -15,9 +15,14 @@ import { red } from "@mui/material/colors";
 
 const icons = [
   {
+    icon: <DashboardIcon />,
+    title: "Dashboard",
+    url: "/courses",
+  },
+  {
     icon: <HistoryEduIcon />,
     title: "Courses",
-    url: "/courses",
+    url: "/courses/courses",
   },
   {
     icon: <PersonIcon />,

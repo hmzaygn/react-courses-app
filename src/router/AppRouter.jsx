@@ -7,6 +7,7 @@ import PrivateRouter from "./PrivateRouter";
 import Dashboard from "../pages/Dashboard";
 import Courses from "../pages/Courses";
 import Students from "../pages/Students";
+import Home from "../pages/Home";
 
 const AppRouter = () => {
   return (
@@ -17,7 +18,8 @@ const AppRouter = () => {
 
         <Route path="courses" element={<PrivateRouter />}>
           <Route path="" element={<Dashboard />}>
-            <Route index element={<Courses />} />
+            <Route index element={<Home />} />
+            <Route path={"courses"} element={<Courses />} />
             <Route path={"students"} element={<Students />} />
           </Route>
         </Route>
